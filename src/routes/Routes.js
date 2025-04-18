@@ -1,3 +1,4 @@
+// src/routes/Routes.jsx
 import { useRoutes } from "react-router-dom";
 import { Layout } from "../layout/Layout";
 import { Login } from "../pages/Login";
@@ -10,6 +11,7 @@ import { Profile } from "../pages/Profile";
 import { Subscription } from "../pages/Subscription";
 import { Payment } from "../pages/Payment";
 import { NotFound } from "../pages/NotFound";
+import { ProtectedRoute } from "../components/routes/ProtectedRoute";
 
 const router = () => [
   {
@@ -22,36 +24,19 @@ const router = () => [
   },
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <ProtectedRoute>
+        <Layout />
+      </ProtectedRoute>
+    ),
     children: [
-      {
-        path: "/",
-        element: <Homepage />,
-      },
-      {
-        path: "/my-list",
-        element: <MyList />,
-      },
-      {
-        path: "/series",
-        element: <Series />,
-      },
-      {
-        path: "/film",
-        element: <Film />,
-      },
-      {
-        path: "/profile",
-        element: <Profile />,
-      },
-      {
-        path: "/subscription",
-        element: <Subscription />,
-      },
-      {
-        path: "/payment",
-        element: <Payment />,
-      },
+      { path: "/", element: <Homepage /> },
+      { path: "/my-list", element: <MyList /> },
+      { path: "/series", element: <Series /> },
+      { path: "/film", element: <Film /> },
+      { path: "/profile", element: <Profile /> },
+      { path: "/subscription", element: <Subscription /> },
+      { path: "/payment", element: <Payment /> },
     ],
   },
   {
@@ -60,8 +45,7 @@ const router = () => [
   },
 ];
 
-export const Routes = (props) => {
-  const routers = router(props);
-  let routes = useRoutes(routers);
+export const Routes = () => {
+  const routes = useRoutes(router());
   return routes;
 };
