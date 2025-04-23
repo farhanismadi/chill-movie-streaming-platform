@@ -8,17 +8,17 @@ export const AuthProvider = ({ children }) => {
     const savedUser = localStorage.getItem("user");
     return savedUser ? JSON.parse(savedUser) : null;
   });
-
+  // login
   const login = (userData) => {
     setUser(userData);
     localStorage.setItem("user", JSON.stringify(userData));
   };
-
+  // logout
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
   };
-
+  // edit akun
   const updateUser = async (updatedData) => {
     try {
       const response = await api.put(`/user/${user.id}`, updatedData);
@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
       console.error("Update user failed:", err);
     }
   };
-
+  // delete akun
   const deleteUser = async () => {
     try {
       await api.delete(`/user/${user.id}`);
